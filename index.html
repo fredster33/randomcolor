@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>random color!</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Fallback color */
+  }
+
+  #color-container {
+    text-align: center;
+  }
+
+  #random-color {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<div id="color-container">
+  <h1 id="random-color">here's a random color for you <3</h1>
+<script>
+  // Function to generate a random color
+  function generateRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  // Function to set random color and contrast text color
+  function setRandomColor() {
+    const body = document.body;
+    const randomColor = generateRandomColor();
+    body.style.backgroundColor = randomColor;
+
+    // Calculate luminance to determine contrast text color
+    const luminance = (0.299 * parseInt(randomColor.substr(1, 2), 16)) +
+                      (0.587 * parseInt(randomColor.substr(3, 2), 16)) +
+                      (0.114 * parseInt(randomColor.substr(5, 2), 16));
+    const textColor = luminance > 128 ? '#000000' : '#ffffff';
+    body.style.color = textColor;
+  }
+
+  // Call the function on page load
+  window.onload = setRandomColor;
+</script>
+</body>
+</html>
